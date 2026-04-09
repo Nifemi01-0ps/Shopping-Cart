@@ -103,6 +103,7 @@ export default function CartDrawer() {
             <Link to="/checkout" className={styles.checkoutBtn}>
               Proceed to Checkout →
             </Link>
+            <p>Codes: SAVE10 . WELCOME20 . FLASH15</p>
           </div>
         )}
       </div>
