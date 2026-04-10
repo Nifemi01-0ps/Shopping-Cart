@@ -4,7 +4,7 @@ import { useStore } from "../store/useStore.js";
 import { getCartTotal, getCartSavings } from "../utils/index.js";
 import styles from "../styles/CartDrawer.module.css";
 
-const fmt = p => '₦' + p.toLocalString('en-NG');
+const fmt = p => '₦' + p.toLocaleString('en-NG');
 
 export default function CartDrawer() {
   const cart = useStore(st => st.cart);
@@ -15,11 +15,11 @@ export default function CartDrawer() {
   const coupon = useStore(st => st.coupon);
   const couponDiscount = useStore(st => st.couponDiscount);
   const applyCoupon = useStore(st => st.applyCoupon);
-  const removeCoupon = useState(st => st.removeCoupon);
-  const showToast = useState(st => st.showToast);
+  const removeCoupon = useStore(st => st.removeCoupon);
+  const showToast = useStore(st => st.showToast);
 
   const cartTotal = getCartTotal(cart);
-  const cartSaving = getCartSavings(cart);
+  const cartSavings = getCartSavings(cart);
   const finalTotal = cartTotal - couponDiscount;
 
   // Use State
@@ -33,10 +33,16 @@ export default function CartDrawer() {
     else showToast('Invalid coupon code', 'error');
     setCouponInput('');
   }
+  // HandlekeyDown 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleCoupon();
+    }
+  } 
   return (
     <>
       {cartOpen && (
-        <div data-testid='overlay' className={styles.overlay} onClick={() => setCartOpen(false)}/>
+        <div data-testid="overlay" className={styles.overlay} onClick={() => setCartOpen(false)}/>
       )}
       <div className={styles.drawer} style={{ right: cartOpen ? 0: '-480px' }}>
         {/* Header */}
@@ -62,13 +68,13 @@ export default function CartDrawer() {
               cart.map(item => (
                 <div key={item.key} className={styles.cartItem}>
                   <div className={styles.imgBox}>
-                    <img src={item.img} alt={item.name} />
+                    <img src={item.img} alt={item.name || 'product image'} />
                   </div>
 
                   <div>
                     <p className={styles.itemName}>{item.name}</p>
                     <div className={styles.qtyControls}>
-                      <button onClick={() => updateQty(item.key, item.qty - 1)} className={styles.qtyBtn}>
+                      <button onClick={() => item.qty > 1 && updateQty(item.key, item.qty - 1)} className={styles.qtyBtn}>
                         −
                       </button>
                       <span>{item.qty}</span>
@@ -91,7 +97,7 @@ export default function CartDrawer() {
         {cart.length > 0 && (
           <div className={styles.footer}>
             <div className={styles.couponRow}>
-              <input type="text" data-testid='coupon-input' value={couponInput} className={styles.input} />
+              <input type="text" data-testid='coupon-input' value={couponInput} onChange={(e) => setCouponInput(e.target.value)} className={styles.input} onKeyDown={handleKeyDown} />
               <button data-testid='apply-coupon' onClick={handleCoupon} className={styles.applyBtn}>
                 Apply
               </button>
