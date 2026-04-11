@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { coupons } from '../data/product.js';
+import { coupons, products as staticProducts, fetchDummyProducts } from '../data/products.js';
 import { getCartTotal } from '../utils/index.js';
 
 const load = (key, def) => {
@@ -11,6 +11,26 @@ const save = (key, val) => {
 };
 
 export const useStore = create((set, get) => ({
+
+  // ── PRODUCTS ────────────────────────────────────────────────────────────────
+  products:        staticProducts,   // immediately available — no blank screen
+  productsLoading: false,
+  productsError:   null,
+
+  loadProducts: async () => {
+    if (get().productsLoading) return;          // prevent duplicate calls
+    set({ productsLoading: true, productsError: null });
+    try {
+      const live = await fetchDummyProducts();  // YOUR_PRODUCTS + live DummyJSON
+      set({ products: live, productsLoading: false });
+    } catch (err) {
+      // fetchDummyProducts already falls back internally, but just in case:
+      console.warn('[ShopFlow] loadProducts error:', err.message);
+      set({ productsLoading: false, productsError: err.message });
+    }
+  },
+
+  // ── CART ────────────────────────────────────────────────────────────────────
   cart: load('cart', []),
 
   addToCart: (product, qty = 1, size = null, color = null) => {
@@ -39,7 +59,8 @@ export const useStore = create((set, get) => ({
 
   clearCart: () => { save('cart', []); set({ cart: [] }); },
 
-  coupon: null,
+  // ── COUPON ──────────────────────────────────────────────────────────────────
+  coupon:         null,
   couponDiscount: 0,
 
   applyCoupon: (code) => {
@@ -52,6 +73,7 @@ export const useStore = create((set, get) => ({
 
   removeCoupon: () => set({ coupon: null, couponDiscount: 0 }),
 
+  // ── WISHLIST ─────────────────────────────────────────────────────────────────
   wishlist: load('wishlist', []),
 
   toggleWishlist: (product) => {
@@ -63,6 +85,7 @@ export const useStore = create((set, get) => ({
     set({ wishlist: next });
   },
 
+  // ── RECENTLY VIEWED ──────────────────────────────────────────────────────────
   recentlyViewed: load('recentlyViewed', []),
 
   addRecentlyViewed: (product) => {
@@ -72,6 +95,7 @@ export const useStore = create((set, get) => ({
     set({ recentlyViewed: next });
   },
 
+  // ── USER & ORDERS ────────────────────────────────────────────────────────────
   user:   load('user', null),
   orders: load('orders', []),
 
@@ -98,8 +122,9 @@ export const useStore = create((set, get) => ({
     return order;
   },
 
-  cartOpen:     false,
-  setCartOpen:  (v) => set({ cartOpen: v }),
+  // ── UI STATE ─────────────────────────────────────────────────────────────────
+  cartOpen:    false,
+  setCartOpen: (v) => set({ cartOpen: v }),
 
   toast: null,
   showToast: (msg, type = 'success') => {
