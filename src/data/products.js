@@ -1,9 +1,5 @@
 // ShopFlow Product Data
-//
-// FakeStore API removed (HTTP 523 — site down permanently).
-// All products now use your exact format with real Unsplash image URLs.
-// Unsplash images load fine in <img> tags — the previous failure was
-//
+
 // Product sections:
 //   1. YOUR PRODUCTS  — sneakers, wristwatches, oriamo, nivea (ids 1-21)
 //   2. DUMMYJSON STATIC — embedded fallback (ids 2001-2030)
@@ -33,7 +29,6 @@ export const FALLBACK_IMAGES = {
 };
 
 // picsum fallback seeds — used by ImageWithFallback as the second fallback
-// after Unsplash fails, before the inline SVG placeholder kicks in
 export const PICSUM_FALLBACKS = {
   'sneakers':        'https://picsum.photos/seed/adidas-boost/600/600',
   'wristwatches':    'https://picsum.photos/seed/casio-gshock/600/600',
@@ -59,10 +54,8 @@ export const PICSUM_FALLBACKS = {
 // Every product image has TWO URLs:
 //   • Primary   → images.unsplash.com  (real product photo, crisp quality)
 //   • Fallback  → picsum.photos/seed   (stable CDN, loads even if Unsplash slow)
-//
 // ImageWithFallback tries primary → fallback → inline SVG placeholder.
 // This means images ALWAYS display — no more blank boxes.
-//
 // I(unsplashPhotoId, picsumSeed) returns { img, fallbackImg, imgs }
 // so you can spread it directly into a product object.
 const I = (unsplashId, picsumSeed, extra = []) => {
@@ -162,7 +155,7 @@ const DUMMYJSON_STATIC = [
   { id:1048, title:'Boho Macrame Plant Hanger',   price:41,   disc:17.00, rating:4.08, stock:131, cat:'home-decoration', img:'https://images.unsplash.com/photo-1463320726281-696a485928c7?w=600&q=80', fallbackImg:'https://picsum.photos/seed/plant-hanger/600/600' },
   { id:1049, title:'Scented Soy Candles Set',     price:29,   disc:10.00, rating:4.34, stock:95,  cat:'home-decoration', img:'https://images.unsplash.com/photo-1602874801007-bd458bb1a698?w=600&q=80', fallbackImg:'https://picsum.photos/seed/soy-candles/600/600' },
   { id:1050, title:'Resistance Bands Set',        price:25,   disc:8.00,  rating:4.27, stock:200, cat:'sports-accessories',img:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80', fallbackImg:'https://picsum.photos/seed/body-lotion/600/600' },
-  { id:1051, title:'Polarised Sunglasses',        price:49,   disc:13.00, rating:4.15, stock:73,  cat:'sunglasses',     img:'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80', fallbackImg:'https://picsum.photos/seed/sunglasses/600/600' },
+  { id:1051, title:'Polarised Sunglasses',        price:15,   disc:3, rating:4.15, stock:73,  cat:'sunglasses',     img:'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80', fallbackImg:'https://picsum.photos/seed/sunglasses/600/600' },
 ];
 
 function mapDummyStatic(p) {
@@ -198,7 +191,7 @@ function mapDummyStatic(p) {
 const DUMMYJSON_STATIC_MAPPED = DUMMYJSON_STATIC.map(mapDummyStatic);
 
 // ─────────────────────────────────────────────────────────────────────────────
-// 3. ASYNC DUMMYJSON FETCH — upgrades static data with live products + real images
+// 3. ASYNC DUMMYJSON FETCH — static data with live products + real images
 // ─────────────────────────────────────────────────────────────────────────────
 const isLocalhost = () =>
   typeof window !== 'undefined' &&
@@ -269,11 +262,10 @@ export async function fetchDummyProducts() {
         const yourIds  = new Set(YOUR_PRODUCTS.map(p => p.id));
         const liveIds  = new Set(live.map(p => p.id));
 
-        // Live products that don't clash with YOUR_PRODUCTS
+        // Live products
         const liveOnly = live.filter(p => !yourIds.has(p.id));
 
         // Static fallback products NOT already returned by the live fetch
-        // This ensures all 51 static products always show, even when live data loads
         const staticOnly = DUMMYJSON_STATIC_MAPPED.filter(
           p => !liveIds.has(p.id) && !yourIds.has(p.id)
         );
@@ -294,12 +286,6 @@ export async function fetchDummyProducts() {
   _dummyCache = products; // YOUR_PRODUCTS + DUMMYJSON_STATIC_MAPPED
   return _dummyCache;
 }
-
-// FakeStore removed — was returning HTTP 523 (site down)
-export async function fetchFakestoreProducts() {
-  return []; // no-op — keeps useProducts.js import working without breaking
-}
-
 // ─────────────────────────────────────────────────────────────────────────────
 // 4. STATIC PRODUCT LIST — always available, zero network dependency
 //    Order: your products first, then dummyjson static
