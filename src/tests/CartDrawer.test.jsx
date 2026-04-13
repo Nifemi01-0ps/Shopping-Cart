@@ -3,7 +3,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, test, expect, vi, beforeEach } from "vitest";
 import CartDrawer from "../components/CartDrawer.jsx";
 import { useStore } from "../store/useStore.js";
-import { coupons } from "../data/product.js";
+import { coupons } from "../data/products.js";
 import userEvent from "@testing-library/user-event";
 
 // Mocking Zustand store 
