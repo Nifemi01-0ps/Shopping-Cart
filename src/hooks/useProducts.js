@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { products as staticProducts, fetchDummyProducts } from '../data/products.js';
+import { products as staticProducts, fetchDummyProducts } from '../data/product.js';
 
 export function useProducts() {
   // Serve static data immediately — zero latency, always works
