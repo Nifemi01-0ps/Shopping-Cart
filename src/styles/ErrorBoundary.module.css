@@ -1,0 +1,76 @@
+.wrapper {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+.container {
+    max-width: 480px;
+    text-align: center;
+}
+.icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+.title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+.message {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+.errorBox {
+    text-align: left;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 14px;
+    font-size: 12px;
+    color: var(--red);
+    overflow: auto;
+    margin-bottom: 20px;
+    max-height: 160px;
+}
+.actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+.primaryBtn {
+    padding: 10px 20px;
+    background: var(--text);
+    color: white;
+    border: none;
+    border-radius: var(--r-sm);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.secondaryBtn {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+}
+.minimalBox {
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+}
+.minimalBtn {
+    margin-top: 8px;
+    font-size: 12px;
+    color:  var(--blue);
+    background: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
