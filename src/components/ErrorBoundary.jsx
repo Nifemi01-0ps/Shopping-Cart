@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import { styles } from "../styles/ErrorBoundary.module.css";
+import  styles  from "../styles/ErrorBoundary.module.css";
 
 export default class ErrorBoundary extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ export default class ErrorBoundary extends Component {
                         <p className={styles.icon}>⚠️</p>
                         <h2 className={styles.title}>Something went wrong</h2>
                         <p className={styles.message}>An unexpected error occur on this page. Your cart and account are safe</p>
-                        {import.meta.env.Dev && this.state.error && (
+                        {import.meta.env.DEV && this.state.error && (
                             <pre className={styles.errorBox}>{this.state.error.message}</pre>
                         )}
                         <div className={styles.actions}>
