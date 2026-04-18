@@ -15,7 +15,7 @@ const makePlaceholder = (collection = 'default') => {
             <rect width='400' height='400' fill='%23f2f0eb'/>
             <text x='200' y='200' font-size='80' text-anchor='middle' dominant-baseline='central'>${emoji}</text>
          </svg>`;
-         return `data:image/svg+sml,${svg}`;
+         return `data:image/svg+xml,${svg}`;
 };
 
 export default function ImageWithFallback({ src, alt, collection, fallbackSrc, className, style, width, height, loading = 'lazy' }) {
@@ -43,7 +43,7 @@ export default function ImageWithFallback({ src, alt, collection, fallbackSrc, c
 
     return (
         <div className={styles.wrapper}>
-            {!loaded && <div className={styles.skeleton} />}
+            {!loaded && <div data-testid='skeleton' className={styles.skeleton} />}
 
             <img src={currentSrc} alt={alt || ''} className={`${styles.image} ${loaded ? styles.imageLoaded : ''} ${className || ''}`}
             width={width}
