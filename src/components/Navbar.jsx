@@ -19,6 +19,7 @@ export default function Navbar() {
     const cartCount = getCartCount(cart);
 
     const [userOpen, setUserOpen] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
     const dropRef = useRef(null);
     const navigate = useNavigate();
 
@@ -41,7 +42,7 @@ export default function Navbar() {
                 Shop<span className={styles.logoEm}>Flow</span>
             </Link>
 
-            <form className={styles.searchForm} onSubmit={handleSearch} role="search">
+            <form className={`${styles.searchForm} ${showSearch ? styles.showSearch : ''}`} onSubmit={handleSearch} role="search">
                 <div className={styles.searchBar}>
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--faint)" strokeWidth="2" aria-hidden="true">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -58,6 +59,12 @@ export default function Navbar() {
             </form>
 
             <div className={styles.right}>
+                <button className={styles.iconBtn} onClick={() => setShowSearch(s => !s)} aria-label="Toggle search">
+                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                </button>
 
                 {/* Wishlist */}
                 <Link to="/wishlist" className={styles.iconBtn} aria-label={`Wishlist (${wishlist.length} items)`}>
