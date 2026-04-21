@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useStore } from "../store/useStore.js";
 import { getCartCount } from "../utils/index.js";
-import ThemeToggle from "../context/ThemeContext.jsx";
+import  { ThemeToggle } from "../context/ThemeContext.jsx";
 import styles from "../styles/Navbar.module.css";
 
 export default function Navbar() {
