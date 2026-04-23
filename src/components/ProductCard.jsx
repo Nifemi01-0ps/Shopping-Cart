@@ -94,7 +94,6 @@ function ProductCard({ product, listView }) {
         </div>
       </Link>
 
-      {/* ── Buttons live outside the Link ── */}
       <div className={styles.footer}>
         <div>
           <span className={styles.price}>{fmt(product.price)}</span>
