@@ -26,7 +26,8 @@ function RecentlyViewed() {
   const timerRef = useRef(null);
 
   const items    = (recentlyViewed || []).filter(p => p && p.id && p.name);
-  const VISIBLE  = Math.min(items.length, useVisibleCount());
+  const visibleCount = useVisibleCount();
+  const VISIBLE = Math.min(items.length, visibleCount);
   const canSlide = items.length > VISIBLE;
 
   const goTo = (idx, dir = 'next') => {
