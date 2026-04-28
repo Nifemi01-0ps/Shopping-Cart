@@ -1,0 +1,21 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    background: none;
+    cursor: pointer;
+    font-size: 17px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.button:hover {
+    transform: scale(1.05);
+}
+.button:active {
+    transform: scale(0.95);
+}
