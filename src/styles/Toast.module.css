@@ -1,0 +1,36 @@
+.wrapper {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    animation: slideUp 0.3s ease;
+    pointer-events: none;
+}
+
+.toast {
+    color: wheat;
+    border-radius: var(--r-full);
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba((0), 0, 0, 0.15);
+    white-space: nowrap;
+}
+.success {
+    background: var(--text);
+}
+.error {
+    background: var(--red);
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }    
+}
