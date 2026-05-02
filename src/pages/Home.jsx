@@ -82,7 +82,7 @@ export default function Home() {
                 <div className={styles.grid4}>
                     {loading && featured.length === 0
                         ? Array.from({length:4}).map((_,i) => (
-                            <div key={i} style={{background:'var(--off)',borderRadius:'var(--r)',aspectRatio:'1/1',animation:'shimmer 1.4s infinite',backgroundSize:'200% 100%',backgroundImage:'linear-gradient(90deg,var(--bg) 25%,var(--border) 50%,var(--bg) 75%)'}} />
+                            <div key={i} style={styles.skeleton} />
                         ))
                         : featured.map(p => <ProductCard key={p.id} product={p} />)
                         }
