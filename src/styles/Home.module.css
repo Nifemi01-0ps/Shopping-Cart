@@ -1,0 +1,330 @@
+* {
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+.trustBar {
+    background: var(--text);
+    color: white;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+.trustItem {
+    font-size: 13px;
+    opacity: 0.85;
+}
+.hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 24px 60px;
+    text-align: center;
+}
+.heroTag {
+    display: inline-block;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-full);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 5px 16px;
+    margin-bottom: 24px;
+}
+.heroTitle {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 7vw, 72px);
+    margin-bottom: 16px;
+}
+.heroTitleEm {
+    font-style: italic;
+    color: var(--muted);
+}
+.heroSub {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 480px;
+    margin: 0 auto 32px;
+}
+.heroBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.heroBtn {
+    padding: 13px 28px;
+    background: var(--text);
+    color: white;
+    border-radius: var(--r-full);
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+}
+.hero:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+.heroBtnOutline {
+    padding: 13px 28px;
+    background: var(--white);
+    color: var(--text);
+    border-radius: var(--r-full);
+    font-size: 15px;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    text-decoration: none;
+}
+.heroBtnOutline:hover {
+    background: var(--bg);
+}
+.heroBtn, .heroBtnOutline, .collectionCard {
+    -webkit-tap-highlight-color: transparent;
+}
+.heroStats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+}
+.heroStat {
+    text-align: center;
+}
+.heroStatVal {
+    display: block;
+    font-size: 24px;
+    font-weight: 600;
+}
+.heroStatLabel {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+.section {
+    padding: 56px 24px;
+}
+.sectionWhite {
+    padding: 56px 24px;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+}
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+.sectionTitle {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+}
+.sectionLink {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+}
+.sectionLink:hover {
+    color: var(--text);
+}
+.grid4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+}
+.skeleton {
+    background: var(--off);
+    border-radius: var(--r);
+    aspect-ratio: 1/1;
+    animation: shimmer 1.4s infinite;
+    background-size: 200% 100%;
+    background-image: linear-gradient(
+    90deg,
+    var(--bg) 25%,
+    var(--border) 50%,
+    var(--bg) 75%
+  );
+}
+.collectionsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+.collectionCard {
+    border-radius: var(--r);
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.collectionCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+.collectionImg {
+    height: 160px;
+    overflow: hidden;
+    background: var(--off);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.collectionImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 24px;
+    transition: transform 0.4s;
+    image-rendering: auto;
+}
+.collectionCard:hover .collectionImg img {
+    transform: scale(1.05);
+}
+.collectionBody {
+    padding: 16px 20px 20px;
+}
+.collectionEmoji {
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+.collectionName {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+.collectionDesc {
+    font-size: 13px;
+    color: var(--muted);
+}
+.saleBanner {
+    margin: 0 24px 56px;
+    background: var(--text);
+    color: white;
+    border-radius: var(--r);
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+.saleBannerTag {
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 8px;
+}
+.saleBannerTitle {
+    font-family: "DM Serif display", serif;
+    font-size: 36px;
+    margin-bottom: 8px;
+    font-weight: 400;
+}
+.saleBannerTitleEm {
+    font-style: italic;
+    opacity: 0.7;
+}
+.saleBannerSub {
+    opacity: 0.7;
+    font-size: 15px;
+}
+.saleBannerBtn {
+    padding: 14px 28px;
+    background: white;
+    color: var(--text);
+    border-radius: var(--r-full);
+    font-size: 15px;
+    font-weight: 600;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+/* Animation */
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+    .hero {
+        padding: 48px 16px 40px;
+    }
+    .heroStats {
+        gap: 32px;
+    }
+    .section, .sectionWhite {
+        padding: 36px 16px;
+    }
+    .saleBanner {
+        margin: 0 16px 40px;
+        padding: 28px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .saleBannerTitle {
+        font-size: 26px;
+    }
+    .saleBannerBtn {
+        width: 100%;
+        text-align: center;
+    }
+    .trustBar {
+        gap: 12px;
+        padding: 10px 16px;
+    }
+    .trustItem {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heroTitle {
+        font-size: 32px;
+    }
+    .heroSub {
+        font-size: 15px;
+    }
+    .grid4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    .collectionsGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 360px) {
+    .heroTitle {
+        font-size: 26px;
+    }
+    .heroSub {
+        font-size: 14px;
+        padding: 0 8px;
+    }
+    .heroBtn {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .heroBtn, .heroBtnOutline {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+    }
+    .heroStat {
+        gap: 16px;
+    }
+    .heroStatVal {
+        font-size: 10px;
+    }
+    .collectionsGrid {
+        grid-template-columns: 1fr;
+    }
+}
