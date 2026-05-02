@@ -12,8 +12,11 @@ export default function Home() {
     const { products, loading } = useProducts();
     const featured = useMemo(() => (products || []).filter(p => p.badge === 'hot' || p.rating >= 4.7).slice(0, 4), [products]);
     const onSale = useMemo(() => (products || []).filter(p => p.oldPrice && p.inStock).slice(0, 4), [products]);
-    const displayCollections = collections.filter(c => c.id !== 'all');
-    const [imgError, setImgError] = useState(false);
+    const displayCollections = useMemo(() => collections.filter(c => c.id !== 'all'), []);
+    const [imgError, setImgError] = useState({});
+    const stats =[
+        ['50+', 'Products'], ['8', 'Collections'], ['24h', 'Fast delivery'], ['4.5★', 'Avg rating']
+    ];
 
     return (
         <div>
@@ -30,14 +33,15 @@ export default function Home() {
                     Curated <em className={styles.heroTitleEm}>collections</em><br/>for your lifestyle
                 </h1>
                 <p className={styles.heroSub}>
-                    Fashion, electronic, jewellery & more
+                    Fashion, electronics, jewellery & more
                 </p>
                 <div className={styles.heroBtns}>
                     <Link to="/shop" className={styles.heroBtn}>Shop All Collections</Link>
                     <Link to="/shop?badge=sale" className={styles.heroBtnOutline}>View Sales</Link>
                 </div>
                 <div className={styles.heroStats}>
-                    {[['50+', 'Products'], ['8', 'Collections'], ['24h', 'Fast delivery'], ['4.5★', 'Avg rating']].map(([val, label]) => (
+                    const stats = 
+                    {stats.map(([val, label]) => (
                         <div key={label} className={styles.heroStat}>
                             <strong className={styles.heroStatVal}>{val}</strong>
                             <span className={styles.heroStatLabel}>{label}</span>
@@ -54,8 +58,8 @@ export default function Home() {
                     {displayCollections.map(c => (
                         <Link key={c.id} to={`/shop?c=${encodeURIComponent(c.id)}`} className={styles.collectionCard}>
                             <div className={styles.collectionImg}>
-                                {!imgError && c.img ? (
-                                    <img src={c.img} alt={c.label} onError={() => setImgError(true)} loading="lazy"/>
+                                {!imgError[c.id] && c.img ? (
+                                    <img src={c.img} alt={c.label} onError={() => setImgError(prev => ({...prev, [c.id]: true}))} loading="lazy"/>
                                 ): (
                                     <span className={styles.collectionFallback}>{c.emoji}</span>
                                 )}
