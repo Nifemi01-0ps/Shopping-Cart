@@ -10,21 +10,32 @@ const save = (key, val) => {
   try { sessionStorage.setItem(key, JSON.stringify(val)); } catch {}
 };
 
+// Pre-normalize a single product for fast search lookups
+const normalize = (product) => ({
+  ...product,
+  nameLower:       product.name?.toLowerCase() ?? '',
+  tagsLower:       product.tags?.map(t => t.toLowerCase()) ?? [],
+  collectionLower: product.collection?.toLowerCase() ?? '',
+  descLower:       product.desc?.toLowerCase() ?? '',
+});
+
+// Normalize an entire product list
+const normalizeAll = (list) => list.map(normalize);
+
 export const useStore = create((set, get) => ({
 
   // ── PRODUCTS ────────────────────────────────────────────────────────────────
-  products:        staticProducts,   // immediately available — no blank screen
+  products:        normalizeAll(staticProducts),
   productsLoading: false,
   productsError:   null,
 
   loadProducts: async () => {
-    if (get().productsLoading) return;          // prevent duplicate calls
+    if (get().productsLoading) return;
     set({ productsLoading: true, productsError: null });
     try {
-      const live = await fetchDummyProducts();  // YOUR_PRODUCTS + live DummyJSON
-      set({ products: live, productsLoading: false });
+      const live = await fetchDummyProducts();
+      set({ products: normalizeAll(live), productsLoading: false });
     } catch (err) {
-      // fetchDummyProducts already falls back internally, but just in case:
       console.warn('[ShopFlow] loadProducts error:', err.message);
       set({ productsLoading: false, productsError: err.message });
     }
